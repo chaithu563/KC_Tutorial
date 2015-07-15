@@ -1,0 +1,5 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\Assembly_example\dll_hell\ClassLibrary1\bin\Debug\ClassLibrary1.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\Assembly_example\dll_hell\ClassLibrary1\bin\Debug\ClassLibrary1.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\Assembly_example\dll_hell\ClassLibrary1\obj\Debug\ClassLibrary1.csprojResolveAssemblyReference.cache
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\Assembly_example\dll_hell\ClassLibrary1\obj\Debug\ClassLibrary1.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\Assembly_example\dll_hell\ClassLibrary1\obj\Debug\ClassLibrary1.pdb
