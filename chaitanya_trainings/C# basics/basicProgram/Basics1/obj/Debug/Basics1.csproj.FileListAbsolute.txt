@@ -1,0 +1,6 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Basics1\bin\Debug\Basics1.exe.config
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Basics1\bin\Debug\Basics1.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Basics1\bin\Debug\Basics1.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Basics1\obj\Debug\Basics1.csprojResolveAssemblyReference.cache
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Basics1\obj\Debug\Basics1.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Basics1\obj\Debug\Basics1.pdb
