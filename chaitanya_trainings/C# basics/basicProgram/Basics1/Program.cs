@@ -32,7 +32,7 @@ namespace Basics1
             A ob1;
             ob1 = new A();
             ob1.m1();
-            ob1 = new B();
+           // ob1 = new B();
 
             ob1.m1();
          

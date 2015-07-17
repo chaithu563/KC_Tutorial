@@ -1,0 +1,6 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Interfaces\obj\Debug\Interfaces.csprojResolveAssemblyReference.cache
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Interfaces\bin\Debug\Interfaces.exe.config
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Interfaces\bin\Debug\Interfaces.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Interfaces\bin\Debug\Interfaces.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Interfaces\obj\Debug\Interfaces.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Interfaces\obj\Debug\Interfaces.pdb

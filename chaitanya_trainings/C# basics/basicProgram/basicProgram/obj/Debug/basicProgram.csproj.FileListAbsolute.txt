@@ -1,0 +1,4 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\basicProgram\bin\Debug\basicProgram.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\basicProgram\bin\Debug\basicProgram.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\basicProgram\obj\Debug\basicProgram.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\basicProgram\obj\Debug\basicProgram.pdb
