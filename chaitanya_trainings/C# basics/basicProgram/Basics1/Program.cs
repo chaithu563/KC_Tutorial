@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Basics1
 {
-
-   sealed class A
+    //sealed
+    class A
     {
         public virtual void m1()
         {

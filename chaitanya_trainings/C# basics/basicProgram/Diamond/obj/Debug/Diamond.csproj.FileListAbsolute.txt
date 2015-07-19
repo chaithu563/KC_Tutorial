@@ -1,0 +1,6 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Diamond\bin\Debug\Diamond.exe.config
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Diamond\bin\Debug\Diamond.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Diamond\bin\Debug\Diamond.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Diamond\obj\Debug\Diamond.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Diamond\obj\Debug\Diamond.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\Diamond\obj\Debug\Diamond.csprojResolveAssemblyReference.cache

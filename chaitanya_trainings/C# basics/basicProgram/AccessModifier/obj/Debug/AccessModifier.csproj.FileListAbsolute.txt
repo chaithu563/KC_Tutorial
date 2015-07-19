@@ -1,0 +1,6 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\AccessModifier\bin\Debug\AccessModifier.exe.config
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\AccessModifier\bin\Debug\AccessModifier.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\AccessModifier\bin\Debug\AccessModifier.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\AccessModifier\obj\Debug\AccessModifier.csprojResolveAssemblyReference.cache
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\AccessModifier\obj\Debug\AccessModifier.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# basics\basicProgram\AccessModifier\obj\Debug\AccessModifier.pdb

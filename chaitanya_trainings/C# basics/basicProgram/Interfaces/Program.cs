@@ -33,10 +33,10 @@ namespace Interfaces
     {
         private int salary;
 
-        //public void setSalary(int sal)
-        //{
-        //    this.salary = sal;
-        //}
+        public void setSalary(int sal)
+        {
+            this.salary = sal;
+        }
 
     }
 
