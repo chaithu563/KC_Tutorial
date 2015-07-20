@@ -1,0 +1,6 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\LINQ\bin\Debug\LINQ.exe.config
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\LINQ\bin\Debug\LINQ.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\LINQ\bin\Debug\LINQ.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\LINQ\obj\Debug\LINQ.csprojResolveAssemblyReference.cache
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\LINQ\obj\Debug\LINQ.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\LINQ\obj\Debug\LINQ.pdb
