@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="chaitanyaModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="chaitanyaEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Employees" EntityType="chaitanyaModel.Employee" />
+  </EntityContainer>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Type="Decimal" Name="id" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="String" Name="name" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="salary" Precision="19" Scale="4" />
+  </EntityType>
+</Schema>

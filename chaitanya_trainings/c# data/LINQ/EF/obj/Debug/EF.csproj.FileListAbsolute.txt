@@ -1,0 +1,8 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\EF\bin\Debug\EF.exe.config
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\EF\bin\Debug\EF.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\EF\bin\Debug\EF.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\EF\bin\Debug\EntityFramework.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\EF\bin\Debug\EntityFramework.xml
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\EF\obj\Debug\EF.csprojResolveAssemblyReference.cache
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\EF\obj\Debug\EF.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\EF\obj\Debug\EF.pdb
