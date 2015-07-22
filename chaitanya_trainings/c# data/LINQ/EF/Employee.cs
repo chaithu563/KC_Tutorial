@@ -17,5 +17,6 @@ namespace EF
         public decimal id { get; set; }
         public string name { get; set; }
         public Nullable<decimal> salary { get; set; }
+        public byte[] place { get; set; }
     }
 }

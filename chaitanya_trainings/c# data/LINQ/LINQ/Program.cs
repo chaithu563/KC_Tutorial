@@ -12,10 +12,10 @@ namespace LINQ
        public int a;
        public int b;
 
-      public  Data(int a, int b)
+      public  Data(int a1, int b1)
         {
-            this.a = a;
-            this.b = b;
+            this.a = a1;
+            this.b = b1;
         }
     }
 
@@ -32,7 +32,7 @@ namespace LINQ
 
             //LINQ
 
-            var aitems = ob.Select(x => x.a==2);
+            var aitems = ob.Where(x => x.b==2);
             int[] arr = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, };
           
        

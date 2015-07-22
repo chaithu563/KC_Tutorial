@@ -13,11 +13,21 @@ namespace EF
 
             chaitanyaEntities ob = new chaitanyaEntities();
 
-            var result = ob.Employees.Select(x => x.name);
+           // var result = ob.Employees.Where(x => x.salary > 10000).Select(x => x.name);
 
-            foreach(var item in result)
+            var result = from v in ob.Employees
+                         where v.salary>10000
+                         select
+                         new
+                         {
+                             v.name 
+
+                         }
+                       ;
+
+            foreach (var item in result)
             {
-                Console.Write(item);
+                Console.WriteLine(item);
 
             }
 

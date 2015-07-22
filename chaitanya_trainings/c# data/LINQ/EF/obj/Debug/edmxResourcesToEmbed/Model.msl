@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Employees">
       <EntityTypeMapping TypeName="chaitanyaModel.Employee">
         <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="place" ColumnName="place" />
           <ScalarProperty Name="salary" ColumnName="salary" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />

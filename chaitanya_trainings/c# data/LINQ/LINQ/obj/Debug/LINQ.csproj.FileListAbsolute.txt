@@ -4,3 +4,5 @@ C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\LINQ\bin\Debug\LINQ
 C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\LINQ\obj\Debug\LINQ.csprojResolveAssemblyReference.cache
 C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\LINQ\obj\Debug\LINQ.exe
 C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\LINQ\obj\Debug\LINQ.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\LINQ\bin\Debug\EntityFramework.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\LINQ\bin\Debug\EntityFramework.xml

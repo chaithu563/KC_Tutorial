@@ -10,5 +10,6 @@
     <Property Name="id" Type="numeric" Nullable="false" />
     <Property Name="name" Type="nvarchar" MaxLength="50" />
     <Property Name="salary" Type="money" />
+    <Property Name="place" Type="varbinary" MaxLength="50" />
   </EntityType>
 </Schema>

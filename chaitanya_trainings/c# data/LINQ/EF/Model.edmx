@@ -15,6 +15,7 @@
           <Property Name="id" Type="numeric" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="salary" Type="money" />
+          <Property Name="place" Type="varbinary" MaxLength="50" />
         </EntityType>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -30,6 +31,7 @@
           <Property Type="Decimal" Name="id" Nullable="false" Precision="18" Scale="0" />
           <Property Type="String" Name="name" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Decimal" Name="salary" Precision="19" Scale="4" />
+          <Property Type="Binary" Name="place" MaxLength="50" FixedLength="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -40,6 +42,7 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="chaitanyaModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="place" ColumnName="place" />
                 <ScalarProperty Name="salary" ColumnName="salary" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
