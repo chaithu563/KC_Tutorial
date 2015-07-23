@@ -3,3 +3,4 @@ C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\ADO.NET\bin\Debug\A
 C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\ADO.NET\bin\Debug\ADO.NET.pdb
 C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\ADO.NET\obj\Debug\ADO.NET.exe
 C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\ADO.NET\obj\Debug\ADO.NET.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\ADO.NET\obj\Debug\ADO.NET.csprojResolveAssemblyReference.cache
