@@ -15,22 +15,29 @@ namespace EF
 
            // var result = ob.Employees.Where(x => x.salary > 10000).Select(x => x.name);
 
-            var result = from v in ob.Employees
-                         where v.salary>10000
-                         select
-                         new
-                         {
-                             v.name 
+            //var result = from v in ob.Employees
+            //             where v.salary>10000
+            //             select
+            //             new
+            //             {
+            //                 v.name 
 
-                         }
-                       ;
+            //             }
+            //           ;
 
-            foreach (var item in result)
-            {
-                Console.WriteLine(item);
 
-            }
+            //var update = ob.Employees.Where(x => x.salary == 10000).Single();
 
+            //update.name = "changesname";
+
+            //ob.SaveChanges();
+            //var result = ob.Employees.Select(x => new { x.name,x.salary });
+
+
+            ob.Employees.Add(new Employee { id = 4, name = "testadd", salary = 11000 });
+
+            ob.SaveChanges();
+            var result = ob.Employees.Select(x => new { x.name, x.salary });
             Console.Read();
             
         }
