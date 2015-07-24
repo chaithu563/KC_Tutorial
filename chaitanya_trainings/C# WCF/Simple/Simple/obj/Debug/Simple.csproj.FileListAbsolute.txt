@@ -1,0 +1,5 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\Simple\bin\Simple.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\Simple\bin\Simple.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\Simple\obj\Debug\Simple.csprojResolveAssemblyReference.cache
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\Simple\obj\Debug\Simple.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\Simple\obj\Debug\Simple.pdb
