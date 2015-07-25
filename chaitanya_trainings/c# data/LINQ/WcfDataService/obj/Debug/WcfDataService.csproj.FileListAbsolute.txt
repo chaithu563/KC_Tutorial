@@ -1,0 +1,17 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\WcfDataService.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\WcfDataService.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\EntityFramework.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\Microsoft.Data.Edm.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\Microsoft.Data.OData.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\Microsoft.Data.Services.Client.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\Microsoft.Data.Services.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\System.Spatial.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\EntityFramework.xml
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\Microsoft.Data.Edm.xml
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\Microsoft.Data.OData.xml
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\Microsoft.Data.Services.xml
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\Microsoft.Data.Services.Client.xml
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\bin\System.Spatial.xml
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\obj\Debug\WcfDataService.csprojResolveAssemblyReference.cache
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\obj\Debug\WcfDataService.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\c# data\LINQ\WcfDataService\obj\Debug\WcfDataService.pdb
