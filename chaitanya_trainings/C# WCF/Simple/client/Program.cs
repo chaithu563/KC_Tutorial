@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using client.ServiceReference1;
+using client.TestServiceReference;
 namespace client
 {
     class Program
@@ -11,7 +11,14 @@ namespace client
         static void Main(string[] args)
         {
             Service1Client ob = new Service1Client();
-            Console.Write(ob.GetData(2));
+
+            CompositeType ct = new CompositeType();
+            ct.StringValue = "kcr";
+            ct.BoolValue = true;
+
+            ct = ob.GetDataUsingDataContract(ct);
+
+            Console.WriteLine(ct.StringValue);
             Console.Read();
         }
     }
