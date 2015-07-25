@@ -1,0 +1,6 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\restclient\bin\Debug\restclient.exe.config
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\restclient\bin\Debug\restclient.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\restclient\bin\Debug\restclient.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\restclient\obj\Debug\restclient.csprojResolveAssemblyReference.cache
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\restclient\obj\Debug\restclient.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\restclient\obj\Debug\restclient.pdb

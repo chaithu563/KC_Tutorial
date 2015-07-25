@@ -1,0 +1,5 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\Wcfrest\obj\Debug\Wcfrest.csprojResolveAssemblyReference.cache
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\Wcfrest\bin\Wcfrest.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\Wcfrest\bin\Wcfrest.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\Wcfrest\obj\Debug\Wcfrest.dll
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\Wcfrest\obj\Debug\Wcfrest.pdb

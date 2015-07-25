@@ -1,0 +1,6 @@
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\client\bin\Debug\client.exe.config
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\client\bin\Debug\client.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\client\bin\Debug\client.pdb
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\client\obj\Debug\client.csprojResolveAssemblyReference.cache
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\client\obj\Debug\client.exe
+C:\chaitanya\kc\KC_Tutorial\chaitanya_trainings\C# WCF\Simple\client\obj\Debug\client.pdb
