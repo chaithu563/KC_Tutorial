@@ -1,0 +1,229 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+@model MeetingScheduler.Web.Models.Open
+@{
+    ViewBag.Title = "Meeting Details";
+    Layout = null;
+}
+  <link href="@Url.Content("~/stylesheets/Open.css")" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $("#StartTiming").datepicker({
+            altField: "#alternate",
+            dateFormat: "yy-mm-dd"
+
+        });
+
+        $("#EndTiming").datepicker({
+            altField: "#alternate",
+            dateFormat: "yy-mm-dd"
+
+        });
+    });
+
+    function Delete() {
+        $.getJSON(
+     
+       '@Url.Content("~/Scheduler/Delete")',
+        function (valid) {
+            if (valid) {
+              
+                dpc.callBack2("Command", { "ConferenceID": $('#SelectedConferenceRoomId').val() }, { "command": "refresh" });
+            }
+            else {
+              
+                dpc.callBack2("Command", { "ConferenceID": $('#SelectedConferenceRoomId').val() }, { "command": "refresh" });
+            }
+
+        });
+    
+    }
+    function calback() {
+
+        var title = document.getElementById('Title').value;
+
+        var Account = document.getElementById('Account').value;
+        var Project = document.getElementById('Project').value;
+        var StartTiming = document.getElementById('StartTiming').value;
+        var sHour = document.getElementById('sHour').value;
+        var sMinute = document.getElementById('sMinute').value;
+
+        var EndTiming = document.getElementById('EndTiming').value;
+        var eHour = document.getElementById('eHour').value;
+        var eMinute = document.getElementById('eMinute').value;
+
+
+        var StartTimings = StartTiming.split("-");
+        var EndTimings = EndTiming.split("-");
+
+        var FullStartTiming = StartTimings[2] + '-' + StartTimings[1] + '-' + StartTimings[0] + ' ' + sHour + ':' + sMinute + ':00';
+        var FullEndTiming = EndTimings[2] + '-' + EndTimings[1] + '-' + EndTimings[0] + ' ' + eHour + ':' + eMinute + ':00';
+        var parseDate = function (s) {
+            var re = /^(\d\d)-(\d\d)-(\d{4}) (\d\d):(\d\d):(\d\d)$/;
+            var m = re.exec(s);
+            return m ? new Date(m[3], m[2] - 1, m[1], m[4], m[5], m[6]) : null;
+        };
+        MeetingType = "";
+        
+        if ($.trim(title) != '' && $.trim(Account) != '' && $.trim(Project) != '' && StartTiming != '' && EndTiming != '' && parseDate(FullStartTiming) - parseDate(FullEndTiming) < 0 && parseDate(FullStartTiming) - new Date() > 0) {
+            var params = {};
+            params.title = title;
+            params.Account = Account;
+            params.Project = Project;
+            params.StartTiming = StartTiming + ' ' + sHour + ':' + sMinute + ":00";
+            params.EndTiming = EndTiming + ' ' + eHour + ':' + eMinute + ":00";
+            params.MeetingType = MeetingType;
+            params.ConferenceRoomId = $('#SelectedConferenceRoomId').val();
+
+            $.getJSON(
+
+                  '@Url.Content("~/Scheduler/clientConflictsupdate")', params,
+                                    function (isconflict) {
+
+                                        if (isconflict) {
+
+                                            alert("Your client meeting conflict with other client meeting.Please change the timings");
+
+                                        }
+                                        else {
+
+                                            $.getJSON(
+                                                   '@Url.Content("~/Scheduler/Update")', params,
+
+                                                    function (valid) {
+                                                        if (valid) {
+
+                                                            dpc.callBack2("Command", { "ConferenceID": $('#SelectedConferenceRoomId').val() }, { "command": "refresh" });
+                                                        }
+                                                        else {
+
+                                                            dpc.callBack2("Command", { "ConferenceID": $('#SelectedConferenceRoomId').val() }, { "command": "refresh" });
+                                                        }
+
+                                                    });
+
+                                          
+                                            $(".submitopen").closest(".dialog").dialog("close");
+
+                                        }
+                                    }
+                                    );
+
+         
+
+        }
+
+        else {
+            document.getElementById('validation').innerHTML = 'Please fill all the required fields';
+            if (parseDate(FullStartTiming) - parseDate(FullEndTiming) >= 0) {
+
+                document.getElementById('validation').innerHTML = 'Start time should be lesser than end time';
+            }
+            if (parseDate(FullStartTiming) - new Date() <= 0) {
+                document.getElementById('validation').innerHTML = 'Meetings cannot be scheduled for the past dates';
+            }
+        }
+
+    }
+
+
+    $(".submitopen").live("click", function (e) {
+
+
+    });
+
+
+</script>
+
+
+
+<div class="SchedulerPopup">
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    
+  <div> 
+  <table align="right"><tr align="left"> <td> Status </td><td>: @Html.DisplayFor(model => model.Status)</td>  </tr>
+
+          <tr align="left"><td>Type</td><td>: @Html.DisplayFor(model => model.MeetingType) </td> </tr>
+           <tr align="left"><td>Booked by</td><td>: @Html.DisplayFor(model => model.UserName) </td> </tr>
+          </table>
+   </div>
+  
+
+
+        <div class="editor-field">
+        
+            @Html.LabelFor(model => model.Title)
+          
+           
+        </div>
+        <div class="editor-field">
+             @Html.EditorFor(model => model.Title, null, "Title", new { id = "Title" })
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+        <br />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Account)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Account, null, "Account", new { id = "Account" })
+            @Html.ValidationMessageFor(model => model.Account)
+        </div>
+         <br />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Project)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Project, null, "Project", new { id = "Project" })
+            @Html.ValidationMessageFor(model => model.Project)
+        </div>
+         <br />
+        <div class="editor-label">
+            @Html.Label("Start Time:*") &nbsp; &nbsp; &nbsp; &nbsp; @Html.Label("HH") &nbsp;&nbsp;  @Html.Label("MM") 
+        </div>
+        <div >
+            @Html.EditorFor(model => model.StartTiming, null, "StartTiming", new { id = "StartTiming" })
+            @Html.DropDownListFor(model => model.sHour, new SelectList(Model.Hours, "Value", "Text"))
+              @Html.DropDownListFor(model => model.sMinute, new SelectList(Model.Minutes, "Value", "Text"))
+            
+            
+   
+
+
+            @Html.ValidationMessageFor(model => model.StartTiming)
+        </div>
+         <br />
+          <div class="editor-label">
+            @Html.Label("End Time:*")  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @Html.Label("HH") &nbsp;&nbsp;  @Html.Label("MM") 
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndTiming, null, "EndTiming", new { id = "EndTiming" })
+               @Html.DropDownListFor(model => model.eHour, new SelectList(Model.Hours, "Value", "Text"))
+              @Html.DropDownListFor(model => model.eMinute, new SelectList(Model.Minutes, "Value", "Text"))
+            @Html.ValidationMessageFor(model => model.EndTiming)
+        </div>
+         <br />
+      
+     
+       
+    <p>  <label id="validation" style="color:Red"></label> </p>
+   
+    
+}
+ <input type="submit" value="Update" name="Update" onclick="calback();"  class="submitopen"/>
+  <input type="submit" value="Delete" name="Delete" onclick="Delete();"  class="submit"/>
+
+</div>
+
+
+<p>
+
+

@@ -1,0 +1,124 @@
+﻿@{
+    Layout = null;
+}
+<link href="@Url.Content("~/stylesheets/Open.css")" rel="stylesheet" type="text/css" />
+<!DOCTYPE html>
+@model MeetingScheduler.Web.Models.Open
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Meeting Details</title>
+</head>
+<body>
+    <table class="tblview">
+        <tr class="trview">
+            <td class="tdview">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Title)
+                </div>
+            </td>
+            <td class="tdview" s>
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.Title, null, "Title", new { id = "Title" })
+                </div>
+            </td>
+        </tr>
+        <tr class="trview">
+            <td class="tdview">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Account)
+                </div>
+            </td>
+            <td class="tdview">
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.Account, null, "Account", new { id = "Account" })
+                </div>
+            </td>
+        </tr>
+        <tr class="trview">
+            <td class="tdview">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Project)
+                </div>
+            </td>
+            <td class="tdview">
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.Project, null, "Project", new { id = "Project" })
+                </div>
+            </td>
+        </tr>
+        <tr class="trview">
+            <td class="tdview">
+                <div class="editor-label">
+                    @Html.Label("Start Time")
+                </div>
+            </td>
+            <td class="tdview">
+                <div>
+                    @Html.DisplayFor(model => model.StartTiming, null, "StartTiming", new { id = "StartTiming" })
+                </div>
+            </td>
+        </tr>
+        <tr class="trview">
+            <td class="tdview">
+                <div class="editor-label">
+                    @Html.Label("End Time")
+                </div>
+            </td>
+            <td class="tdview">
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.EndTiming, null, "EndTiming", new { id = "EndTiming" })
+                </div>
+            </td>
+        </tr>
+        <tr class="trview">
+            <td class="tdview">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.MeetingType)
+                </div>
+            </td>
+            <td class="tdview">
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.MeetingType, null, "MeetingType")
+                </div>
+            </td>
+        </tr>
+        <tr class="trview">
+            <td class="tdview">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ConferenceRoom)
+                </div>
+            </td>
+            <td class="tdview">
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.ConferenceRoom, null, "ConferenceRoom")
+                </div>
+            </td>
+        </tr>
+        <tr class="trview">
+            <td class="tdview">
+                <div class="editor-label">
+                    @Html.Label("Booked by")
+                </div>
+            </td>
+            <td class="tdview">
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.UserName, null, "UserName")
+                </div>
+            </td>
+        </tr>
+        <tr class="trview">
+            <td class="tdview">
+                <div class="editor-label">
+                    @Html.Label("Status")
+                </div>
+            </td>
+            <td class="tdview">
+                <div class="editor-field">
+                    @Html.DisplayFor(model => model.Status)
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

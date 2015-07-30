@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MeetingDBEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="EVENTS" EntityType="Model.EVENT" />
+    <EntitySet Name="MEETINGROOMS" EntityType="Model.MEETINGROOM" />
+    <EntitySet Name="USERS" EntityType="Model.USER" />
+    <AssociationSet Name="SYS_C0011031" Association="Model.SYS_C0011031">
+      <End Role="MEETINGROOMS" EntitySet="MEETINGROOMS" />
+      <End Role="EVENTS" EntitySet="EVENTS" />
+    </AssociationSet>
+    <AssociationSet Name="SYS_C0011032" Association="Model.SYS_C0011032">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="EVENTS" EntitySet="EVENTS" />
+    </AssociationSet>
+    <EntitySet Name="FEATURES" EntityType="Model.FEATURE" />
+    <EntitySet Name="ROOMFEATURES" EntityType="Model.ROOMFEATURES" />
+  </EntityContainer>
+  <EntityType Name="EVENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+    <Property Name="TEXT" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="EVENTSTART" Type="DateTime" Precision="0" />
+    <Property Name="EVENTEND" Type="DateTime" Precision="0" />
+    <Property Name="CONFROOMID" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="USERID" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="STATUS" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="MEETINGROOM" Relationship="Model.SYS_C0011031" FromRole="EVENTS" ToRole="MEETINGROOMS" />
+    <NavigationProperty Name="USER" Relationship="Model.SYS_C0011032" FromRole="EVENTS" ToRole="USERS" />
+    <Property Type="String" Name="PROJECT" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MEETINGROOM">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+    <Property Name="NAME" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="EVENTS" Relationship="Model.SYS_C0011031" FromRole="MEETINGROOMS" ToRole="EVENTS" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Nullable="false" Precision="38" Scale="0" />
+    <Property Name="NAME" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="EVENTS" Relationship="Model.SYS_C0011032" FromRole="USERS" ToRole="EVENTS" />
+  </EntityType>
+  <Association Name="SYS_C0011031">
+    <End Role="MEETINGROOMS" Type="Model.MEETINGROOM" Multiplicity="0..1" />
+    <End Role="EVENTS" Type="Model.EVENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MEETINGROOMS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EVENTS">
+        <PropertyRef Name="CONFROOMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SYS_C0011032">
+    <End Role="USERS" Type="Model.USER" Multiplicity="0..1" />
+    <End Role="EVENTS" Type="Model.EVENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EVENTS">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="FEATURE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Decimal" Name="ID" Nullable="false" Precision="38" Scale="0" />
+    <Property Type="String" Name="FEATURE1" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ROOMFEATURES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Decimal" Name="ROOMID" Precision="38" Scale="0" />
+    <Property Type="String" Name="FEATUREID" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="ID" Nullable="false" Precision="38" Scale="0" />
+  </EntityType>
+</Schema>

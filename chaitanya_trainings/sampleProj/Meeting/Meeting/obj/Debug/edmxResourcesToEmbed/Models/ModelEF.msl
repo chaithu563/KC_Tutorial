@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="meetingModelStoreContainer" CdmEntityContainer="meetingEntities">
+    <EntitySetMapping Name="EVENTs">
+      <EntityTypeMapping TypeName="meetingModel.EVENT">
+        <MappingFragment StoreEntitySet="EVENT">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+          <ScalarProperty Name="EVENTSTART" ColumnName="EVENTSTART" />
+          <ScalarProperty Name="EVENTEND" ColumnName="EVENTEND" />
+          <ScalarProperty Name="CONFROOMID" ColumnName="CONFROOMID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MEETINGROOMs">
+      <EntityTypeMapping TypeName="meetingModel.MEETINGROOM">
+        <MappingFragment StoreEntitySet="MEETINGROOM">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USERS">
+      <EntityTypeMapping TypeName="meetingModel.USER">
+        <MappingFragment StoreEntitySet="USERS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

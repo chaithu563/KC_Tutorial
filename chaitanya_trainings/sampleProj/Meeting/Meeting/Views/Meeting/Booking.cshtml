@@ -1,0 +1,935 @@
+﻿@using DayPilot.Web.Mvc;
+@model Meeting.Models.MeetingData
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "AVEVA Room Booking";
+}
+
+ <style type="text/css">
+/* popup_box DIV-Styles*/
+#popup_box { 
+    display:none; /* Hide the DIV */
+    position:fixed;  
+    _position:absolute; /* hack for internet explorer 6 */  
+    height:300px;  
+    width:300px;  
+    background:#ffffff;  
+    left: 30%;
+    top: 30%;
+    z-index:100; /* Layering ( on-top of others), if you have lots of layers: I just maximized, you can change it yourself */
+    margin-left: 0px;  
+    
+    /* additional features, can be omitted */
+    border:1px solid #000000;      
+    padding:0px;  
+    font-size:15px;  
+    /* -moz-box-shadow: 0 0 5px #ff0000;
+   -webkit-box-shadow: 0 0 5px #ff0000;
+    box-shadow: 0 0 5px #ff0000;*/
+    
+}
+
+#popup_Edit { 
+    display:none; /* Hide the DIV */
+    position:fixed;  
+    _position:absolute; /* hack for internet explorer 6 */  
+    height:300px;  
+    width:300px;  
+    background:#ffffff;  
+    left: 30%;
+    top: 30%;
+    z-index:100; /* Layering ( on-top of others), if you have lots of layers: I just maximized, you can change it yourself */
+    margin-left: 0px;  
+    
+    /* additional features, can be omitted */
+    border:1px solid #000000;      
+    padding:0px;  
+    font-size:15px;  
+     /* -moz-box-shadow: 0 0 5px #ff0000;
+   -webkit-box-shadow: 0 0 5px #ff0000;
+    box-shadow: 0 0 5px #ff0000;*/
+    
+}
+
+#popup_view { 
+    display:none; /* Hide the DIV */
+    position:fixed;  
+    _position:absolute; /* hack for internet explorer 6 */  
+    height:200px;  
+    width:300px;  
+    background:#ffffff;  
+    left: 30%;
+    top: 30%;
+    z-index:100; /* Layering ( on-top of others), if you have lots of layers: I just maximized, you can change it yourself */
+    margin-left: 0px;  
+    
+    /* additional features, can be omitted */
+    border:1px solid #000000;      
+    padding:0px;  
+    font-size:15px;  
+     /* -moz-box-shadow: 0 0 5px #ff0000;
+   -webkit-box-shadow: 0 0 5px #ff0000;
+    box-shadow: 0 0 5px #ff0000;*/
+    
+}
+
+#container {
+    background: #d2d2d2; /*Sample*/
+    width:100%;
+    height:100%;
+}
+
+a{  
+cursor: pointer;  
+text-decoration:none;  
+} 
+
+
+
+</style>  
+
+
+
+<script src="@Url.Content("~/Scripts/daypilot-all.min.js")" type="text/javascript"></script>
+
+
+
+
+  <script>
+      var SelectedConferenceRoomId;
+
+      function openview(event) {
+
+          var params = {};
+          params.eid = event;
+          params.user = $("#user").val();
+
+          $.getJSON('@Url.Content("~/api/MeetingAPI/isBookedUser")', params,
+
+          function (data) {
+              debugger;
+             // data.status = false;
+              if (data.status) 
+              {
+                  //updatable view 
+                  $("#eventid").val(event);
+                  var StartFullTimings = data.stratTime.split(" ");
+                  var StratDate = StartFullTimings[0].split("-");
+                  var StratTime = StartFullTimings[1].split(":");
+                  var EndFullTimings = data.endTime.split(" ");
+                  var EndDate = EndFullTimings[0].split("-");
+                  var EndTime = EndFullTimings[1].split(":");
+                  
+                  $("#TitleEdit").val(data.title);
+                  $('#ProjectEdit').val(data.project);
+                  $('#STEdit').val(StratDate[2] + "-" + StratDate[1] + "-" + StratDate[0]);
+                  $('#ETEdit').val(EndDate[2] + "-" + EndDate[1] + "-" + EndDate[0]);
+                  document.getElementById('validation2').innerHTML = '';
+                  var sHours = StratTime[0];
+                  var sMinutes = StratTime[1];
+                  var eHours = EndTime[0];
+                  var eMinutes = EndTime[1];
+                  var selectsh = $("#shddlEdit");
+                  var selectsm = $("#smddlEdit");
+                  var selecteh = $("#ehddlEdit");
+                  var selectem = $("#emddlEdit");
+
+                  if (sMinutes == "00")
+                      selectsm.append("<option selected>00</option>").append("<option>30</option>");
+                  else
+                      selectsm.append("<option>00</option>").append("<option selected>30</option>");
+
+
+                  if (eMinutes == "00")
+                      selectem.append("<option selected>00</option>").append("<option>30</option>");
+                  else
+                      selectem.append("<option>00</option>").append("<option selected>30</option>");
+
+
+                  for (i = 0; i < 24; i++) {
+                      databind = i < 10 ? "0" + i : i;
+                      if (sHours == i)
+                          selectsh.append("<option  selected>" + databind + "</option>");
+                      else
+                          selectsh.append("<option>" + databind + "</option>");
+
+                      if (eHours == i)
+                          selecteh.append("<option selected>" + databind + "</option>")
+                      else
+                          selecteh.append("<option >" + databind + "</option>")
+                  }
+                  $('#popup_Edit').fadeIn("slow");
+
+              }
+
+              else 
+              {
+                  //read only view
+                  $("#Titleview").html(data.title);
+                  $('#Projectview').html(data.project);
+                  $('#STview').html(data.stratTime);
+                  $('#ETview').html(data.endTime);
+                  $('#bookby').html(data.username);
+
+
+                  $('#popup_view').fadeIn("slow");
+
+              }
+
+
+
+
+
+          });
+              
+
+      }
+   
+
+      function openPopup(Timestart, Timeend, dpc) {
+          debugger;
+          var sHours = Timestart.getHours();
+          var sMinutes = Timestart.getMinutes();
+          var eHours = Timeend.getHours();
+          var eMinutes = Timeend.getMinutes();
+          var selectsh = $("#shddl");
+          var selectsm = $("#smddl");
+          var selecteh = $("#ehddl");
+          var selectem = $("#emddl");
+          var databind;
+          $("#Title").val("");
+          $("#Project").val("");
+          document.getElementById('validation').innerHTML = '';
+          $(selectsh).empty(); $(selectsm).empty(); $(selecteh).empty(); $(selectem).empty();
+          if(sMinutes=="00")
+              selectsm.append("<option selected>00</option>").append("<option>30</option>");
+          else
+              selectsm.append("<option>00</option>").append("<option selected>30</option>");
+
+
+          if (eMinutes == "00")
+              selectem.append("<option selected>00</option>").append("<option>30</option>");
+          else
+              selectem.append("<option>00</option>").append("<option selected>30</option>");
+
+
+          for(i=0;i<24;i++)
+          {
+              databind = i < 10 ? "0" + i : i;
+              if (sHours == i)
+                  selectsh.append("<option  selected>" + databind + "</option>");
+              else
+                  selectsh.append("<option>" + databind + "</option>");
+
+              if (eHours == i)
+                  selecteh.append("<option selected>" + databind + "</option>")
+              else
+                  selecteh.append("<option >" + databind + "</option>")
+          }
+       
+          //$("#ST").val(Timestart.getYear() + '-' + (Timestart.getMonth() + 1) + '-' + Timestart.getDay());
+      
+         
+          //$("#ET").val(Timeend.getYear() + '-' + (Timeend.getMonth() + 1) + '-' + Timeend.getDay());
+
+          $("#ST").val(Timestart.getYear() + '-' + ((Timestart.getMonth() + 1) < 10 ? "0" + (Timestart.getMonth() + 1) : (Timestart.getMonth() + 1)) + '-' + ((Timestart.getDay()) < 10 ? "0" + (Timestart.getDay()) : (Timestart.getDay())));
+
+
+          $("#ET").val(Timeend.getYear() + '-' + ((Timeend.getMonth() + 1) < 10 ? "0" + (Timeend.getMonth() + 1) : (Timeend.getMonth() + 1)) + '-' + ((Timeend.getDay()) < 10 ? "0" + (Timeend.getDay()) : (Timeend.getDay())));
+
+
+
+          $('#popup_box').fadeIn("slow");
+          $("#container").css({ // this is just for style
+              "opacity": "0.3"
+          });
+
+      }
+
+      $(document).ready(function () {
+
+          //$("#locationddl").val('11');
+          //var SelectedConferenceRoomId = $('#locationddl').val();
+          //var newDateTime = new Date();
+
+          //var start = new DayPilot.Date(newDateTime, true);
+
+          //dpc.callBack2("Command", { "start": start, "viewType": "Day", "ConferenceID": SelectedConferenceRoomId }, { "command": "goto" });
+
+
+
+          $("#GoTo").datepicker({
+
+              dateFormat: "yy-mm-dd",
+
+              onSelect: function (dateText, inst) {
+                  debugger;
+                  $("#GoTo").text = "GoTo";
+                  var SelectedConferenceRoomId = $('#locationddl').val();
+                  var newDateTime = new Date();
+
+                  var start = new DayPilot.Date(dateText, true);
+
+                  dpc.callBack2("Command", { "start": start, "viewType": "Day", "ConferenceID": SelectedConferenceRoomId }, { "command": "goto" });
+              }
+
+
+          });
+
+          $("#ST").datepicker({
+
+              altField: "#alternate",
+
+              dateFormat: "yy-mm-dd"
+
+
+
+          });
+          $("#ET").datepicker({
+
+              altField: "#alternate",
+
+              dateFormat: "yy-mm-dd"
+
+
+          });
+          $("#STEdit").datepicker({
+
+              altField: "#alternate",
+
+              dateFormat: "yy-mm-dd"
+
+
+
+          });
+          $("#ETEdit").datepicker({
+
+              altField: "#alternate",
+
+              dateFormat: "yy-mm-dd"
+
+
+          });
+
+          // When site loaded, load the Popupbox First
+        //  loadPopupBox("2006-06-01 12:00:00");
+
+          $('#popupBoxClose').click(function () {
+              unloadPopupBox();
+          });
+          $('#popupBoxCloseEdit').click(function () {
+              unloadPopupBox2();
+          });
+
+          $('#popupBoxCloseview').click(function () {
+              unloadPopupBox3();
+          });
+
+          $('#popupBoxBook').click(function () {
+             BookRoom();
+          });
+
+          $('#popupBoxUpdate').click(function () {
+              UpdateRoom();
+          });
+          $('#popupBoxDelete').click(function () {
+              DeleteMeeting();
+          });
+
+          
+
+          $('#container').click(function () {
+              unloadPopupBox();
+          });
+
+          function unloadPopupBox() {    // TO Unload the Popupbox
+              $('#popup_box').fadeOut("slow");
+              $("#container").css({ // this is just for style        
+                  "opacity": "1"
+              });
+          }
+
+
+          function unloadPopupBox2() {    // TO Unload the Popupbox
+              $('#popup_Edit').fadeOut("slow");
+              $("#container").css({ // this is just for style        
+                  "opacity": "1"
+              });
+          }
+
+              function unloadPopupBox3() {    // TO Unload the Popupbox
+                  $('#popup_view').fadeOut("slow");
+                  $("#container").css({ // this is just for style        
+                      "opacity": "1"
+                  });
+          }
+
+
+
+          function BookRoom() {
+
+              debugger;
+              var title = $("#Title").val();
+              var project = $("#Project").val();
+              var username = $("#user").val();
+              var StartTiming = $("#ST").val();
+              //var sHour = document.getElementById('shddl').value;
+              var sHour = $("#shddl").val();
+              var sMinute = $("#smddl").val();
+
+              var EndTiming = $("#ET").val();
+              var eHour = $("#ehddl").val()
+              var eMinute = $("#emddl").val();
+              var StartTimings = StartTiming.split("-");
+              var EndTimings = EndTiming.split("-");
+              var FullStartTiming = StartTimings[2] + '-' + StartTimings[1] + '-' + StartTimings[0] + ' ' + sHour + ':' + sMinute + ':00';
+              var FullEndTiming = EndTimings[2] + '-' + EndTimings[1] + '-' + EndTimings[0] + ' ' + eHour + ':' + eMinute + ':00';
+
+              var parseDate = function (s) {
+                  var re = /^(\d\d)-(\d\d)-(\d{4}) (\d\d):(\d\d):(\d\d)$/;
+                  var m = re.exec(s);
+                  return m ? new Date(m[3], m[2] - 1, m[1], m[4], m[5], m[6]) : null;
+              };
+
+
+              if ($.trim(title) != '' && $.trim(project) != '' && StartTiming != '' && EndTiming != '' && parseDate(FullStartTiming) - parseDate(FullEndTiming) < 0 && parseDate(FullStartTiming) - new Date() > 0) {
+
+
+                  var params = {};
+                  params.title = title;
+                 
+                  params.project = project;
+                  params.stratTime = StartTiming + ' ' + sHour + ':' + sMinute + ":00";
+                  params.endTime = EndTiming + ' ' + eHour + ':' + eMinute + ":00";
+                  params.ConferenceRoomId = SelectedConferenceRoomId;
+                  params.username = username;
+
+
+                  $.getJSON(
+
+           '@Url.Content("~/api/MeetingAPI/isConflicts")', params,
+                                    function (result) {
+                                        debugger;
+                                        if (result) {
+
+                                            alert('Your Meeting Conflicts with other Scheduled meetings.Please Change timings');
+                                        }
+                                        else {
+
+                                            $.getJSON(
+
+              '@Url.Content("~/api/MeetingAPI/SubmitMeeting")', params,
+                                    function (valid) {
+                                        if (valid) {
+
+                                            dpc.callBack2("Command", { "ConferenceID": SelectedConferenceRoomId }, { "command": "refresh" });
+                                        }
+                                        else {
+
+                                            dpc.callBack2("Command", { "ConferenceID": SelectedConferenceRoomId }, { "command": "refresh" });
+                                        }
+
+                                    });
+
+                                            // TO Unload the Popupbox
+                                           $('#popup_box').fadeOut("slow");
+
+                                           $("#container").css({ // this is just for style        
+                                               "opacity": "1"
+                                           });
+
+                                        }
+
+                                    });
+
+
+                  @*$.getJSON(
+
+             '@Url.Content("~/api/MeetingAPI/SubmitMeeting")', params,
+                                    function (valid) {
+                                        if (valid) {
+
+                                            dpc.callBack2("Command", { "ConferenceID": SelectedConferenceRoomId }, { "command": "refresh" });
+                                        }
+                                        else {
+
+                                            dpc.callBack2("Command", { "ConferenceID": SelectedConferenceRoomId }, { "command": "refresh" });
+                                        }
+
+                                    });
+
+                  // TO Unload the Popupbox
+                  $('#popup_box').fadeOut("slow");
+
+                  $("#container").css({ // this is just for style        
+                      "opacity": "1"
+                     });*@
+
+
+
+
+
+              }
+
+              else
+              {
+                  //Error Validation Messages
+
+
+
+                  document.getElementById('validation').innerHTML = 'Please fill all the required fields';
+
+                  if (parseDate(FullStartTiming) - parseDate(FullEndTiming) >= 0) {
+
+                      document.getElementById('validation').innerHTML = 'Start time should be lesser than end time';
+                  }
+
+                  if (parseDate(FullStartTiming) - new Date() <= 0) {
+                      document.getElementById('validation').innerHTML = 'Meetings cannot be scheduled for the past dates';
+                  }
+              }
+
+             
+          }
+
+          function DeleteMeeting() {
+             
+              var params = {};
+              params.eventid= $("#eventid").val();
+              $.getJSON(
+
+           '@Url.Content("~/api/MeetingAPI/DeleteMeeting")', params,
+                                    function (valid) {
+                                        if (valid) {
+                                            dpc.callBack2("Command", { "ConferenceID": SelectedConferenceRoomId }, { "command": "refresh" });
+
+                                          //  dpc.callBack2("Command", { "ConferenceID": $('#locationddl').val() }, { "command": "refresh" });
+                                        }
+                                        else {
+
+                                            dpc.callBack2("Command", { "ConferenceID": SelectedConferenceRoomId }, { "command": "refresh" });
+                                        }
+
+                                    });
+
+              // TO Unload the Popupbox
+                $('#popup_Edit').fadeOut("slow");
+          }
+          function UpdateRoom() {
+
+              debugger;
+              var eventid = $("#eventid").val();
+              var title = $("#TitleEdit").val();
+              var project = $("#ProjectEdit").val();
+              var username = $("#user").val();
+              var StartTiming = $("#STEdit").val();
+              //var sHour = document.getElementById('shddl').value;
+              var sHour = $("#shddlEdit").val();
+              var sMinute = $("#smddlEdit").val();
+
+              var EndTiming = $("#ETEdit").val();
+              var eHour = $("#ehddlEdit").val()
+              var eMinute = $("#emddlEdit").val();
+              var StartTimings = StartTiming.split("-");
+              var EndTimings = EndTiming.split("-");
+              var FullStartTiming = StartTimings[2] + '-' + StartTimings[1] + '-' + StartTimings[0] + ' ' + sHour + ':' + sMinute + ':00';
+              var FullEndTiming = EndTimings[2] + '-' + EndTimings[1] + '-' + EndTimings[0] + ' ' + eHour + ':' + eMinute + ':00';
+
+              var parseDate = function (s) {
+                  var re = /^(\d\d)-(\d\d)-(\d{4}) (\d\d):(\d\d):(\d\d)$/;
+                  var m = re.exec(s);
+                  return m ? new Date(m[3], m[2] - 1, m[1], m[4], m[5], m[6]) : null;
+              };
+
+
+              if ($.trim(title) != '' && $.trim(project) != '' && StartTiming != '' && EndTiming != '' && parseDate(FullStartTiming) - parseDate(FullEndTiming) < 0 && parseDate(FullStartTiming) - new Date() > 0) {
+
+
+
+                  var params = {};
+                  params.eventid = eventid;
+                  params.title = title;
+
+                  params.project = project;
+                  params.stratTime = StartTiming + ' ' + sHour + ':' + sMinute + ":00";
+                  params.endTime = EndTiming + ' ' + eHour + ':' + eMinute + ":00";
+                  // params.ConferenceRoomId = $('#locationddl').val();
+                  params.ConferenceRoomId = SelectedConferenceRoomId;
+                  params.username = username;
+
+                  $.getJSON(
+
+     '@Url.Content("~/api/MeetingAPI/isUpdateConflicts")', params,
+                                    function (result) {
+                                        debugger;
+                                        if (result) {
+
+                                            alert('Your Meeting Conflicts with other Scheduled meetings.Please Change timings');
+                                        }
+                                        else {
+
+                                            $.getJSON(
+
+               '@Url.Content("~/api/MeetingAPI/UpdateMeeting")', params,
+                                    function (valid) {
+                                        if (valid) {
+
+                                            dpc.callBack2("Command", { "ConferenceID": SelectedConferenceRoomId }, { "command": "refresh" });
+                                        }
+                                        else {
+
+                                            dpc.callBack2("Command", { "ConferenceID": SelectedConferenceRoomId }, { "command": "refresh" });
+                                        }
+
+                                    });
+
+                                            // TO Unload the Popupbox
+                                          $('#popup_Edit').fadeOut("slow");
+                                          $("#container").css({ // this is just for style        
+                                              "opacity": "1"
+                                          });
+
+                                        }
+
+                                    });
+                 @* $.getJSON(
+
+             '@Url.Content("~/api/MeetingAPI/UpdateMeeting")', params,
+                                    function (valid) {
+                                        if (valid) {
+
+                                            dpc.callBack2("Command", { "ConferenceID": SelectedConferenceRoomId }, { "command": "refresh" });
+                                        }
+                                        else {
+
+                                            dpc.callBack2("Command", { "ConferenceID": SelectedConferenceRoomId }, { "command": "refresh" });
+                                        }
+
+                                    });
+
+                  // TO Unload the Popupbox
+                  $('#popup_Edit').fadeOut("slow");
+                  $("#container").css({ // this is just for style        
+                      "opacity": "1"
+                  });*@
+
+
+
+
+
+              }
+
+              else {
+
+                  //Validation Messages
+
+                  document.getElementById('validation2').innerHTML = 'Please fill all the required fields';
+
+                  if (parseDate(FullStartTiming) - parseDate(FullEndTiming) >= 0) {
+
+                      document.getElementById('validation2').innerHTML = 'Start time should be lesser than end time';
+                  }
+
+                  if (parseDate(FullStartTiming) - new Date() <= 0) {
+                      document.getElementById('validation2').innerHTML = 'Meetings cannot be scheduled for the past dates';
+                  }
+              }
+
+
+          }
+
+
+         
+      });
+
+
+
+
+  
+
+
+
+
+      function MeetingLocations($scope, $http) {
+
+
+          $scope.hoverItem = function (hovered) {
+              debugger;
+              if (hovered) {
+                  debugger;
+                  $("#tile").removeClass('live-tile');
+                  $("#tile").toggleClass('hover');
+                  // $('#course-0 figure').addClass('tint')
+              }
+              else {
+                  $("#tile").removeClass('hover');
+                  $("#tile").toggleClass('live-tile');
+              }
+          };
+
+
+       //   debugger;
+
+          $("#user").val('@ViewBag.Username');
+         // $http.get('/Meeting/api/MeetingAPI/getRooms').success(function (data) {
+
+         $http.get("@Url.Content("~/api/MeetingAPI/getRooms")").success(function (data) {
+                  debugger;
+                  $scope.rooms = data;
+                  $scope.sroom = $scope.rooms[0].value;
+                  $scope.loading = false;
+            // $("#locationddl").val('11');
+              SelectedConferenceRoomId = '21';
+             var newDateTime = new Date();
+
+             var start = new DayPilot.Date(newDateTime, true);
+
+             dpc.callBack2("Command", { "start": start, "viewType": "Day", "ConferenceID": SelectedConferenceRoomId }, { "command": "goto" });
+             debugger;
+             //Add Default room features
+
+
+                 $http.get("@Url.Content("~/api/MeetingAPI/getFeatures")" + "?confid=" + SelectedConferenceRoomId + "").success(function (data) {
+                  debugger;
+                  $scope.features = data;
+
+              }).error(function (data) { });
+
+
+           
+           
+
+
+
+
+
+              })
+                .error(function () {
+                    $scope.error = "An Error has occured while loading posts!";
+                    $scope.loading = false;
+                });
+
+
+              $scope.locationChanged = function () {
+                  debugger;
+                  var newDateTime = new Date();
+                   SelectedConferenceRoomId = $scope.sroom
+              //    var SelectedConferenceRoomId = $("#locationddl").val();
+                  var start = new DayPilot.Date(newDateTime, true);
+                  dpc.callBack2("Command", { "start": start, "viewType": "Day", "ConferenceID": SelectedConferenceRoomId }, { "command": "goto" });
+
+                  $http.get("@Url.Content("~/api/MeetingAPI/getFeatures")" + "?confid=" + SelectedConferenceRoomId + "").success(function (data) {
+                      debugger;
+                      $scope.features = data;
+
+                  }).error(function (data) { });
+
+
+              };
+
+              $scope.ToDay = function () {
+                  SelectedConferenceRoomId = $scope.sroom
+                  var newDateTime = new Date();
+
+                  var start = new DayPilot.Date(newDateTime, true);
+
+                  dpc.callBack2("Command", { "start": start, "viewType": "Day", "ConferenceID": SelectedConferenceRoomId }, { "command": "goto" });
+              };
+
+              $scope.ThisWeek = function () {
+                  SelectedConferenceRoomId = $scope.sroom
+                //  var SelectedConferenceRoomId = $("#locationddl").val();
+                  var newDateTime = new Date();
+
+                  var start = new DayPilot.Date(newDateTime, true);
+
+                  dpc.callBack2("Command", { "start": start, "viewType": "Week", "ConferenceID": SelectedConferenceRoomId }, { "command": "goto" });
+              }
+
+      }
+
+</script>
+
+
+
+<div class="locationDivdesign">   
+    
+    <img class="Bookingimg" alt="Booking  Logo" src="@Url.Content("~/images/Booking.jpeg")" />
+ <span class="locationddlspan"> 
+     
+
+     <select id="locationddl" ng-model="sroom" ng-options="option.value as option.name for option in rooms" ng-change="locationChanged()">
+       @*  <option selected > --Please Select-- </option>*@
+         @*<option ng-repeat="v in rooms" value="{{v.value}}">{{v.name}}</option>*@
+
+       @*  <option value="">- - Make Selection - -</option>*@
+     </select> 
+
+     
+ </span>           
+   @* <img class="Featuresimg" alt="Features  Logo" src="@Url.Content("~/images/features.jpg")" />*@
+
+   @*  <div id="tile" class="live-tile" data-speed="750" data-mode="flip" data-delay="3000" ng-mouseover="hoverItem(true);" ng-mouseout="hoverItem(false);" >*@
+         <div id="tile" class="live-tile" data-speed="750" data-mode="flip" data-delay="3000" ng-mouseover="hoverItem(true);" ng-mouseout="hoverItem(false);" >
+ 
+           <a class="tile-title">Room features</a>
+           <div class="room-features"> 
+
+       
+               <ul  ng-repeat="feature in features">
+                   <li>{{ feature }}</li>
+               </ul>
+               
+         </div>
+      
+    </div>
+</div>
+<br />
+
+<div id="daypilot">
+
+
+ <div class="headerMeeting">
+   
+
+schedule meeting for the selected  room from the below calendar
+        
+    </div>
+ <div class="toolbar">
+
+     <input type="image" id="ToDay" ng-click="ToDay();"  src="@Url.Content("~/images/ToDay.png")" title="View today calendar"/>
+     <input type="image" id="ThisWeek" ng-click="ThisWeek();"  src="@Url.Content("~/images/thisweek.png")"  title="View this week calendar"/>
+     <input type="image" value="GoTo" id="GoTo"  src="@Url.Content("~/images/calendar.png")" title="View selected date from month calendar" />
+     <span class="emptytoolbal"> </span>
+      <a  href="file://///INHYDDPC162/OutlookAddinSharedpath/setup.exe"> 
+         @* install*@
+           <img id="Outlook" src="@Url.Content("~/images/Outlook Add-in.png")" title="install outlook addin here" />
+      </a>
+     <br />
+</div>
+    
+   @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
+{
+
+
+    BackendUrl = Url.Content("~/Meeting/Backend"),
+    ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.Day,
+    //ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.WorkWeek,
+    TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
+    TimeRangeSelectedJavaScript = "dpc.timeRangeSelectedCallBack(start, end, null, {name: openPopup(start,end,dpc) });",
+    EventClickHandling = DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.JavaScript,
+    EventClickJavaScript = "openview(e.value());",
+    CellHeight=30
+})
+    <br />
+   
+    <br />
+</div>
+
+
+@*<div class="CreateMeeting">*@
+
+      <div id="popup_box">    <!-- OUR PopupBox DIV-->
+
+          <header class="Meetingpopup"> Meeting Details</header>
+       <ul>
+
+           <li class="labels">  <label for="Title">Title*</label> </li>
+           <li class="inputs"> <input id="Title" name="Title" type="text" value="" />   </li>
+
+             <li class="labels"> <label for="Title">Project*</label> </li>
+           <li class="inputs"> <input id="Project" name="Project" type="text" value="" />   </li>
+
+             <li class="labels">  <label for="STL">Start Time*</label> &nbsp;&nbsp;  <label for="STL">HH</label> &nbsp; <label for="STL">MM</label>  </li>
+           <li class="inputs">  <input id="ST" name="ST" type="text" value="" />   <select id="shddl"></select>   <select id="smddl"></select> </li>   
+
+             <li class="labels">  <label for="ETL">End Time*</label> &nbsp;&nbsp; &nbsp; <label for="STL">HH</label> &nbsp; <label for="STL">MM</label>  </li>
+          <li class="inputs">  <input id="ET" name="ET" type="text" value="" />  <select id="ehddl"></select>   <select id="emddl"></select>  </li>
+
+          
+         
+       </ul>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button id="popupBoxBook">Book</button> &nbsp;&nbsp;&nbsp;&nbsp;
+             <button id="popupBoxClose">Close</button> 
+        <p id="validation" style="color:red;font-size:11px;"> </p>
+</div>
+
+
+   <div id="popup_view">    <!-- OUR PopupBox DIV-->
+
+          <header class="Meetingpopup"> Meeting Details</header>
+    
+       <br />
+      <table>
+          <tr>
+       
+           <td class="labels" style="padding-right:5px;">  <label for="Title">Title</label> </td>
+        <td>  <label id="Titleview"  />   </td>
+          </tr> 
+          <tr>
+       
+           <td>
+             <label for="Title">Project</label>  </td>
+         <td>  <label id="Projectview" />  </td>
+          </tr> 
+          <tr>
+
+
+            <td> <label for="STL">Start Time</label></td> 
+       <td>   <label id="STview"></label>   </td>
+
+ </tr> 
+          <tr>
+        <td>      <label for="ETL">End Time</label></td>
+           <td><label id="ETview"></label> </td>
+
+               </tr> 
+          <tr>
+
+
+            <td>
+         <label for="ETL">Booked By</label> </td>
+           <td ><label id="bookby"></label> </td> 
+              </tr>
+         
+     </table>
+       <br />
+     &nbsp;&nbsp;&nbsp;  <button id="popupBoxCloseview">Close</button> 
+</div>
+
+ <div  id="popup_Edit">    <!-- OUR PopupBox DIV-->
+
+   
+
+          <header class="Meetingpopup"> Meeting Details</header>
+       <ul>
+
+           <li class="labels">  <label for="Title">Title*</label> </li>
+           <li class="inputs"> <input id="TitleEdit" name="Title" type="text" value="" />   </li>
+
+             <li class="labels"> <label for="Title">Project*</label> </li>
+           <li class="inputs"> <input id="ProjectEdit" name="Project" type="text" value="" />   </li>
+
+             <li class="labels">  <label for="STL">Start Time*</label> &nbsp;&nbsp;  <label for="STL">HH</label> &nbsp; <label for="STL">MM</label>  </li>
+           <li class="inputs">  <input id="STEdit" name="ST" type="text" value="" />   <select id="shddlEdit"></select>   <select id="smddlEdit"></select> </li>   
+
+             <li class="labels">  <label for="ETL">End Time*</label> &nbsp;&nbsp;&nbsp;  <label for="STL">HH</label> &nbsp; <label for="STL">MM</label>  </li>
+          <li class="inputs">  <input id="ETEdit" name="ET" type="text" value="" />  <select id="ehddlEdit"></select>   <select id="emddlEdit"></select>  </li>
+
+          
+         
+       </ul>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <button id="popupBoxUpdate">Update</button> &nbsp;&nbsp;<button id="popupBoxDelete">Delete</button> &nbsp;&nbsp;
+             <button id="popupBoxCloseEdit">Close</button> 
+        <p id="validation2" style="color:red;font-size:11px;"> </p>
+</div>
+
+<div id="container"> <!-- Main Page -->
+    
+</div>
+  @Html.Hidden("eventid")
+     @Html.Hidden("user")
+
+@*</div>*@

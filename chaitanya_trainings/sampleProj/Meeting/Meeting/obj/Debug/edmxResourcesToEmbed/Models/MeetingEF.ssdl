@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Alias="Self" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="EVENTS" EntityType="Model.Store.EVENTS" store:Type="Tables" Schema="SAMPLETESTUSER" />
+    <EntitySet Name="FEATURES" EntityType="Model.Store.FEATURES" store:Type="Tables" Schema="SAMPLETESTUSER" />
+    <EntitySet Name="MEETINGROOMS" EntityType="Model.Store.MEETINGROOMS" store:Type="Tables" Schema="SAMPLETESTUSER" />
+    <EntitySet Name="ROOMFEATURES" EntityType="Model.Store.ROOMFEATURES" store:Type="Tables" Schema="SAMPLETESTUSER" />
+    <EntitySet Name="USERS" EntityType="Model.Store.USERS" store:Type="Tables" Schema="SAMPLETESTUSER" />
+    <AssociationSet Name="SYS_C0011031" Association="Model.Store.SYS_C0011031">
+      <End Role="MEETINGROOMS" EntitySet="MEETINGROOMS" />
+      <End Role="EVENTS" EntitySet="EVENTS" />
+    </AssociationSet>
+    <AssociationSet Name="SYS_C0011032" Association="Model.Store.SYS_C0011032">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="EVENTS" EntitySet="EVENTS" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="EVENTS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="number" Nullable="false" />
+    <Property Name="TEXT" Type="varchar2" MaxLength="100" />
+    <Property Name="EVENTSTART" Type="date" />
+    <Property Name="EVENTEND" Type="date" />
+    <Property Name="CONFROOMID" Type="number" />
+    <Property Name="USERID" Type="number" />
+    <Property Name="STATUS" Type="varchar2" MaxLength="30" />
+    <Property Name="PROJECT" Type="varchar2" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="FEATURES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="number" Nullable="false" />
+    <Property Name="FEATURE" Type="varchar2" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="MEETINGROOMS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="number" Nullable="false" />
+    <Property Name="NAME" Type="varchar2" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="ROOMFEATURES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ROOMID" Type="number" />
+    <Property Name="FEATUREID" Type="varchar2" MaxLength="100" />
+    <Property Name="ID" Type="number" Nullable="false" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="number" Nullable="false" />
+    <Property Name="NAME" Type="varchar2" MaxLength="100" />
+  </EntityType>
+  <Association Name="SYS_C0011031">
+    <End Role="MEETINGROOMS" Type="Model.Store.MEETINGROOMS" Multiplicity="0..1" />
+    <End Role="EVENTS" Type="Model.Store.EVENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MEETINGROOMS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EVENTS">
+        <PropertyRef Name="CONFROOMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SYS_C0011032">
+    <End Role="USERS" Type="Model.Store.USERS" Multiplicity="0..1" />
+    <End Role="EVENTS" Type="Model.Store.EVENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EVENTS">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

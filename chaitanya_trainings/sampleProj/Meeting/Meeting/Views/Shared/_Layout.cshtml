@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html ng-app>
+<head>
+     <script src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/jquery")
+     @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+   @*  @Scripts.Render(@Url.Content("~/bundles/jquery"))
+     @Scripts.Render(@Url.Content("~/bundles/jqueryui"))
+    @Styles.Render(@Url.Content("~/Content/css"))
+    @Scripts.Render(@Url.Content("~/bundles/modernizr"))*@
+   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  
+</head>
+<body ng-controller="MeetingLocations">
+    
+ @*   @Html.Hidden("username")= @ViewBag.Username*@
+    <header>
+
+        <div class="headermain">
+           
+           <img class="headerimg" alt="Site Logo" src="http://ukcamsdm1:8080/logos/white.gif" />
+
+            <span>Hello! @ViewBag.Username </span>
+        </div>
+
+    </header>
+   
+      @RenderBody()
+
+   
+
+
+
+
+</body>
+</html>

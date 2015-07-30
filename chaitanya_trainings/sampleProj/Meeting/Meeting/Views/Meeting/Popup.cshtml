@@ -1,0 +1,389 @@
+﻿@model MeetingScheduler.Web.Models.Popup
+@{
+    ViewBag.Title = "Please Fill The Meeting Details";
+    Layout = null;
+}
+<link href="@Url.Content("~/stylesheets/Popup.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+
+
+
+    $("#MeetingType").change(function () {
+
+
+        var div = document.getElementById('MeetingType');
+
+        if ($("#MeetingType option[value='Client']").attr('selected')) {
+
+            $("#ManagerID").css("display", "block");
+
+
+        }
+
+        else {
+            $("#ManagerID").css("display", "none");
+        }
+
+
+    });
+
+
+    $(function () {
+
+
+        $("#StartTiming").datepicker({
+
+            altField: "#alternate",
+          
+            dateFormat: "yy-mm-dd"
+
+
+
+        });
+        $("#EndTiming").datepicker({
+
+            altField: "#alternate",
+        
+            dateFormat: "yy-mm-dd"
+
+
+        });
+
+
+    });
+
+
+
+
+    function calback() {
+
+       
+
+        var title = document.getElementById('Title').value;
+        var Account = document.getElementById('Account').value;
+        var Project = document.getElementById('Project').value;
+        var StartTiming = document.getElementById('StartTiming').value;
+        var sHour = document.getElementById('sHour').value;
+        var sMinute = document.getElementById('sMinute').value;
+
+        var EndTiming = document.getElementById('EndTiming').value;
+        var eHour = document.getElementById('eHour').value;
+        var eMinute = document.getElementById('eMinute').value;
+        var MeetingType = document.getElementById('MeetingType').value;
+        var ManagerEmail = document.getElementById('ManagerEmail').value;
+        var StartTimings = StartTiming.split("-");
+        var EndTimings = EndTiming.split("-");
+
+        var FullStartTiming = StartTimings[2] + '-' + StartTimings[1] + '-' + StartTimings[0] + ' ' + sHour + ':' + sMinute + ':00';
+        var FullEndTiming = EndTimings[2] + '-' + EndTimings[1] + '-' + EndTimings[0] + ' ' + eHour + ':' + eMinute + ':00';
+        var IsClientConflicts;
+
+
+
+
+        var parseDate = function (s) {
+            var re = /^(\d\d)-(\d\d)-(\d{4}) (\d\d):(\d\d):(\d\d)$/;
+            var m = re.exec(s);
+            return m ? new Date(m[3], m[2] - 1, m[1], m[4], m[5], m[6]) : null;
+        };
+
+
+      
+        $.trim(title)
+ 
+
+        if ($.trim(title) != '' && $.trim(Account) != '' && $.trim(Project) != '' && MeetingType != '0' && StartTiming != '' && EndTiming != '' && parseDate(FullStartTiming) - parseDate(FullEndTiming) < 0 && parseDate(FullStartTiming) - new Date() > 0) {
+
+            if (MeetingType == 'Client' && ManagerEmail.toLowerCase().indexOf('microsoft.com') == -1) {
+
+                document.getElementById('validation').innerHTML = 'TCS Manager\'s Microsoft email ID is not valid';
+
+
+
+            }
+
+
+
+            else {
+
+                if (MeetingType == 'Non-client') {
+                    var params = {};
+                    params.title = title;
+                    params.Account = Account;
+                    params.Project = Project;
+                    params.StartTiming = StartTiming + ' ' + sHour + ':' + sMinute + ":00";
+                    params.EndTiming = EndTiming + ' ' + eHour + ':' + eMinute + ":00";
+                    params.MeetingType = MeetingType;
+                    params.ConferenceRoomId = $('#SelectedConferenceRoomId').val();
+                    $.getJSON(
+                
+               '@Url.Content("~/Scheduler/Submit")', params,
+                                    function (valid) {
+                                        if (valid) {
+
+                                            dpc.callBack2("Command", { "ConferenceID": $('#SelectedConferenceRoomId').val() }, { "command": "refresh" });
+                                        }
+                                        else {
+
+                                            dpc.callBack2("Command", { "ConferenceID": $('#SelectedConferenceRoomId').val() }, { "command": "refresh" });
+                                        }
+
+                                    });
+                    
+                    $(".submitpop").closest(".dialog").dialog("close");
+
+                }
+
+
+                else {
+                    document.getElementById('validation').innerHTML = '';
+
+
+                    var paramsconf = {};
+                    paramsconf.title = title;
+                    paramsconf.Account = Account;
+                    paramsconf.Project = Project;
+                    paramsconf.StartTiming = StartTiming + ' ' + sHour + ':' + sMinute + ":00";
+                    paramsconf.EndTiming = EndTiming + ' ' + eHour + ':' + eMinute + ":00";
+                    paramsconf.MeetingType = MeetingType;
+                    paramsconf.ConferenceRoomId = $('#SelectedConferenceRoomId').val();
+                    paramsconf.ManagerEmail = ManagerEmail;
+                    $.getJSON(
+               
+                  '@Url.Content("~/Scheduler/Conflicts")', paramsconf,
+                                    function (isconflict) {
+
+
+                                        if (isconflict) {
+
+                                       
+
+                                            var paramsclientconf = {};
+                                            paramsclientconf.title = title;
+                                            paramsclientconf.Account = Account;
+                                            paramsclientconf.Project = Project;
+                                            paramsclientconf.StartTiming = StartTiming + ' ' + sHour + ':' + sMinute + ":00";
+                                            paramsclientconf.EndTiming = EndTiming + ' ' + eHour + ':' + eMinute + ":00";
+                                            paramsclientconf.MeetingType = MeetingType;
+                                            paramsclientconf.ConferenceRoomId = $('#SelectedConferenceRoomId').val();
+                                            paramsclientconf.ManagerEmail = ManagerEmail;
+                                            $.getJSON(
+
+                  '@Url.Content("~/Scheduler/clientConflicts")', paramsclientconf,
+                                    function (isconflict) {
+                                        
+                                        if (isconflict) {
+
+                                            alert("Your client meeting conflict with other client meeting.Please change the timings");
+
+                                        }
+                                        else {
+
+                                            var clientconfirm = confirm("You are about to cancel all the meeting(s) which conflicts at the same time. Pressing OK would proceed for cancellation with email notified to all the meeting recipients. ");
+                                            if (clientconfirm == true) {
+
+
+
+
+
+                                                var params = {};
+                                                params.title = title;
+                                                params.Account = Account;
+                                                params.Project = Project;
+                                                params.StartTiming = StartTiming + ' ' + sHour + ':' + sMinute + ":00";
+                                                params.EndTiming = EndTiming + ' ' + eHour + ':' + eMinute + ":00";
+                                                params.MeetingType = MeetingType;
+                                                params.ConferenceRoomId = $('#SelectedConferenceRoomId').val();
+                                                params.ManagerEmail = ManagerEmail;
+                                                $.getJSON(
+                                            
+                                                                                                                    '@Url.Content("~/Scheduler/Submit")', params,
+                                                                                                                                        function (valid) {
+                                                                                                                                            if (valid) {
+
+                                                                                                                                                dpc.callBack2("Command", { "ConferenceID": $('#SelectedConferenceRoomId').val() }, { "command": "refresh" });
+                                                                                                                                            }
+                                                                                                                                            else {
+
+                                                                                                                                                dpc.callBack2("Command", { "ConferenceID": $('#SelectedConferenceRoomId').val() }, { "command": "refresh" });
+                                                                                                                                            }
+
+                                                                                                                                        });
+
+
+                                                $(".submitpop").closest(".dialog").dialog("close");
+
+                                            }
+
+                                            else {
+                                                //Here We are not closing popup when user cancel Confirmation.
+
+                                            }
+
+                                        }
+                                    }
+                                    );
+
+
+
+                                        }
+                                        else {
+                                            var nonconflictconfirm = confirm("Client visit meeting booking notification would be sent to the meeting host and host's manager.");
+                                            if (nonconflictconfirm == true) {
+
+
+
+
+
+                                                var cparams = {};
+                                                cparams.title = title;
+                                                cparams.Account = Account;
+                                                cparams.Project = Project;
+                                                cparams.StartTiming = StartTiming + ' ' + sHour + ':' + sMinute + ":00";
+                                                cparams.EndTiming = EndTiming + ' ' + eHour + ':' + eMinute + ":00";
+                                                cparams.MeetingType = MeetingType;
+                                                cparams.ConferenceRoomId = $('#SelectedConferenceRoomId').val();
+                                                cparams.ManagerEmail = ManagerEmail;
+                                                $.getJSON(
+                                              
+                                                                        '@Url.Content("~/Scheduler/Submit")', cparams,
+                                                                                            function (valid) {
+                                                                                                if (valid) {
+
+                                                                                                    dpc.callBack2("Command", { "ConferenceID": $('#SelectedConferenceRoomId').val() }, { "command": "refresh" });
+                                                                                                }
+                                                                                                else {
+
+                                                                                                    dpc.callBack2("Command", { "ConferenceID": $('#SelectedConferenceRoomId').val() }, { "command": "refresh" });
+                                                                                                }
+
+                                                                                            });
+
+
+                                                $(".submitpop").closest(".dialog").dialog("close");
+
+                                            }
+
+                                            else {
+                                                //Here We are not closing popup when user cancel Confirmation.
+
+
+                                            }
+                                        }
+
+                                    });
+
+
+
+
+
+
+                }
+
+            }
+
+        }
+
+
+
+        else {
+            document.getElementById('validation').innerHTML = 'Please fill all the required fields';
+
+            if (parseDate(FullStartTiming) - parseDate(FullEndTiming) >= 0) {
+
+                document.getElementById('validation').innerHTML = 'Start time should be lesser than end time';
+            }
+
+            if (parseDate(FullStartTiming) - new Date() <= 0) {
+                document.getElementById('validation').innerHTML = 'Meetings cannot be scheduled for the past dates';
+            }
+        }
+        //  });
+    }
+
+</script>
+<div class="SchedulerPopup">
+    <table class="popuptable">
+        <tr class="popuptr">
+            <td class="popuptd">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Title)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Title, null, "Title", new { id = "Title" })
+                    @Html.ValidationMessageFor(model => model.Title)
+                </div>
+            </td>
+            <td class="popuptd">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Account)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Account, null, "Account", new { id = "Account" })
+                    @Html.ValidationMessageFor(model => model.Account)
+                </div>
+            </td>
+        </tr>
+        <tr class="popuptr">
+            <td class="popuptd">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Project)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Project, null, "Project", new { id = "Project" })
+                    @Html.ValidationMessageFor(model => model.Project)
+                </div>
+            </td>
+            <td class="popuptd">
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.MeetingType)
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("MeetingType", new List<SelectListItem>() { new SelectListItem() { Text = "Please Select...", Value = "0" }, new SelectListItem() { Text = "Non-client", Value = "Non-client" }, new SelectListItem() { Text = "Client", Value = "Client" } }, new { @class = "ddlmeettype" })
+                    @Html.ValidationMessageFor(model => model.MeetingType)
+                </div>
+            </td>
+        </tr>
+        <tr class="popuptr">
+            <td class="popuptd">
+                <div class="editor-label">
+                    @Html.Label("Start Time:*") &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Html.Label("HH")
+                    &nbsp; &nbsp; @Html.Label("MM")
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.StartTiming, null, "StartTiming", new { id = "StartTiming" })
+                    @Html.DropDownListFor(x => x.sHour, new SelectList(Model.Hours, "Value", "Text"))
+                    @Html.DropDownListFor(x => x.sMinute, new SelectList(Model.Minutes, "Value", "Text"))
+                    @Html.ValidationMessageFor(model => model.StartTiming)
+                </div>
+            </td>
+            <td class="popuptd">
+                <div class="editor-label">
+                    @Html.Label("End Time:*") &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Html.Label("HH")
+                    &nbsp; &nbsp;&nbsp; @Html.Label("MM")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.EndTiming, null, "EndTiming", new { id = "EndTiming" })
+                    @Html.DropDownListFor(x => x.eHour, new SelectList(Model.Hours, "Value", "Text"))
+                    @Html.DropDownListFor(x => x.eMinute, new SelectList(Model.Minutes, "Value", "Text"))
+                    @Html.ValidationMessageFor(model => model.EndTiming)
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="ManagerID" id="ManagerID" style="display: none">
+        &nbsp; @Html.Label("TCS Manager Email Address:*")
+        <br />
+        &nbsp;
+        <input type="text" id="ManagerEmail" />
+    </div>
+    <p>
+        &nbsp;
+        <label id="validation" style="color: Red">
+        </label>
+    </p>
+    &nbsp;
+    <input type="submit" value="Book" name="Create" onclick="calback();" class="submitpop"
+        id="submitpopid" />
+</div>
+<p>

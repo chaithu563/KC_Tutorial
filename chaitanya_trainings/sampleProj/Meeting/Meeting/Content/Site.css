@@ -1,0 +1,218 @@
+﻿body {
+    margin: 0px;
+}
+.headermain {
+
+    height:50px;
+    width:100%;
+    background-color:#4e7dd1;
+    overflow:hidden;
+  
+}
+
+.headerimg
+{
+margin:10px;
+float:left;
+}
+
+ .headermain span
+ {
+     margin:10px;
+     font-size:20px;
+     float:right;
+     color:white;
+ }
+
+
+
+
+.locationDivdesign {
+
+   height:70px;
+    width:100%;
+    background-color:AliceBlue;
+    border:thin;
+    padding-left:30%;
+    position:relative;
+    display:inline-block;
+    overflow:hidden;
+    opacity: 1.5;
+    -moz-opacity:0.5;
+
+}
+.Bookingimg {
+    width:60px;
+    height:50px;
+    float:left;
+    margin-left:80px;
+    display:inline;
+    margin-top:8px;
+}
+
+.locationddlspan {
+
+      width:340px;
+      height:20px;
+      top:20px;
+      /*background-color:#4e7dd1;*/
+      position:relative;
+      display:inline;
+}
+
+.hover 
+{
+  width:8%;
+  height:100%;
+   position:absolute;
+   display:inline;
+ margin-left:20%;
+    color: #30261c;
+    background-color: AliceBlue;
+   z-index:20;
+}
+
+.live-tile
+{
+  position:absolute;
+  width:8%;
+  height:100%;
+  display:inline;
+ margin-left:20%;
+   background-color: white;
+   
+   border-color:#1ba1e2;
+}
+
+.tile-title
+{
+    color:#fff;
+    cursor:pointer;
+    z-index:30;
+     width:100%;
+     height:23%;
+     position:absolute;
+      font-size:13px;
+     background-color: #1ba1e2;
+}
+.room-features {
+     position:absolute;
+     height:90%;
+      z-index:50;
+     font-size:11px;
+     font-weight:200;
+     top:10%;
+
+}
+
+    .room-features ul {
+     list-style-type:none;
+    }
+
+#locationddl {
+      width:230px;
+      height:25px;
+      margin-top:1px;
+}
+
+.SelectedConferenceRoomId 
+{
+    margin-top:10px;
+    width:10%;
+    height:24px;
+}
+
+.headerMeeting {
+font-size:20px;
+font-family:Arial;
+width: 100%; 
+margin-left:30%;
+margin-top:5px;
+padding-top:3px;
+color:Gray;
+position:relative;
+
+
+
+
+
+}
+.toolbar {
+    display:inline-block;
+    position:inherit;
+}
+.emptytoolbal {
+    position:absolute;
+    width:50%;
+}
+
+#ToDay {
+    height:50px;
+    width:40px;
+    margin:4px;
+}
+ #ThisWeek{
+    height:50px;
+    width:60px;
+    margin:4px;
+}
+#GoTo {
+    height:50px;
+    width:50px;
+    margin:4px;
+}
+#Outlook {
+     height:50px;
+    width:70px;
+    margin:4px;
+    border:none;
+}
+
+#popup_box ul,#popup_view ul,#popup_Edit ul {
+
+    list-style:none;
+}
+
+
+#popup_box header,#popup_view header,#popup_Edit header {
+
+    width:100%;
+    height:20px;
+    background-color:#d2d2d2;
+    border-bottom:medium;
+
+}
+
+#popup_box button,#popup_view button ,#popup_Edit button{
+background:green;
+color:white;
+border-style:outset;
+border-color:#0066A2;
+font: bold 12px arial,sans-serif;
+}
+
+ .labels {
+
+    font-family:Arial;
+    font-size:16px;
+
+}
+ .inputs {
+
+     width : 200px;
+     padding-bottom:3px;
+     margin-bottom:10px;
+}
+
+#ST, #ET,#STEdit, #ETEdit {
+    width:70px;
+}
+
+.popup_view td {
+
+    padding-left:5px;
+}
+
+
+
+                                                                            

@@ -1,0 +1,56 @@
+﻿@model Meeting.Models.MeetingData
+
+
+
+<script>
+
+
+
+</script>
+
+
+<form> 
+
+    <ul>
+
+
+   <li>
+        @Html.Label("Meeting Title") 
+
+   </li>
+  <li>
+
+       @Html.TextBoxFor(x=>x.title)
+  </li>
+
+          <li>
+        @Html.Label("Project") 
+
+   </li>
+  <li>
+
+       @Html.TextBoxFor(x=>x.project)
+  </li>
+
+
+    <li>
+        @Html.Label("Start Time") 
+
+   </li>
+  <li>
+
+       @Html.TextBoxFor(x=>x.stratTime)  
+  </li>
+         <li>
+        @Html.Label("End Time") 
+
+   </li>
+  <li>
+
+       @Html.TextBoxFor(x=>x.endTime)  
+  </li>
+
+
+
+ </ul>
+</form>

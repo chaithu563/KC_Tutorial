@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="meetingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="meetingModelStoreContainer">
+    <EntitySet Name="EVENT" EntityType="meetingModel.Store.EVENT" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MEETINGROOM" EntityType="meetingModel.Store.MEETINGROOM" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="USERS" EntityType="meetingModel.Store.USERS" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__EVENT__CONFROOMI__0519C6AF" Association="meetingModel.Store.FK__EVENT__CONFROOMI__0519C6AF">
+      <End Role="MEETINGROOM" EntitySet="MEETINGROOM" />
+      <End Role="EVENT" EntitySet="EVENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EVENT__USERID__060DEAE8" Association="meetingModel.Store.FK__EVENT__USERID__060DEAE8">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="EVENT" EntitySet="EVENT" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="EVENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="numeric" Nullable="false" />
+    <Property Name="TEXT" Type="varchar" MaxLength="60" />
+    <Property Name="EVENTSTART" Type="datetime" />
+    <Property Name="EVENTEND" Type="datetime" />
+    <Property Name="CONFROOMID" Type="numeric" Nullable="false" />
+    <Property Name="USERID" Type="numeric" Nullable="false" />
+    <Property Name="STATUS" Type="varchar" MaxLength="60" />
+  </EntityType>
+  <EntityType Name="MEETINGROOM">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="numeric" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="numeric" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK__EVENT__CONFROOMI__0519C6AF">
+    <End Role="MEETINGROOM" Type="meetingModel.Store.MEETINGROOM" Multiplicity="1" />
+    <End Role="EVENT" Type="meetingModel.Store.EVENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MEETINGROOM">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EVENT">
+        <PropertyRef Name="CONFROOMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EVENT__USERID__060DEAE8">
+    <End Role="USERS" Type="meetingModel.Store.USERS" Multiplicity="1" />
+    <End Role="EVENT" Type="meetingModel.Store.EVENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EVENT">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

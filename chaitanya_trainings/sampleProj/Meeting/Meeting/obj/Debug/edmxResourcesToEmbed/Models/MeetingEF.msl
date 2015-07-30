@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="MeetingDBEntities">
+    <EntitySetMapping Name="EVENTS">
+      <EntityTypeMapping TypeName="Model.EVENT">
+        <MappingFragment StoreEntitySet="EVENTS">
+          <ScalarProperty Name="PROJECT" ColumnName="PROJECT" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+          <ScalarProperty Name="EVENTSTART" ColumnName="EVENTSTART" />
+          <ScalarProperty Name="EVENTEND" ColumnName="EVENTEND" />
+          <ScalarProperty Name="CONFROOMID" ColumnName="CONFROOMID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MEETINGROOMS">
+      <EntityTypeMapping TypeName="Model.MEETINGROOM">
+        <MappingFragment StoreEntitySet="MEETINGROOMS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USERS">
+      <EntityTypeMapping TypeName="Model.USER">
+        <MappingFragment StoreEntitySet="USERS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FEATURES">
+      <EntityTypeMapping TypeName="Model.FEATURE">
+        <MappingFragment StoreEntitySet="FEATURES">
+          <ScalarProperty Name="FEATURE1" ColumnName="FEATURE" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ROOMFEATURES">
+      <EntityTypeMapping TypeName="Model.ROOMFEATURES">
+        <MappingFragment StoreEntitySet="ROOMFEATURES">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FEATUREID" ColumnName="FEATUREID" />
+          <ScalarProperty Name="ROOMID" ColumnName="ROOMID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

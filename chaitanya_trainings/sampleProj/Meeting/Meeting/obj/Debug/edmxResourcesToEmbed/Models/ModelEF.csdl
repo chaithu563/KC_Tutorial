@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="meetingModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="meetingEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="EVENTs" EntityType="meetingModel.EVENT" />
+    <EntitySet Name="MEETINGROOMs" EntityType="meetingModel.MEETINGROOM" />
+    <EntitySet Name="USERS" EntityType="meetingModel.USER" />
+    <AssociationSet Name="FK__EVENT__CONFROOMI__0519C6AF" Association="meetingModel.FK__EVENT__CONFROOMI__0519C6AF">
+      <End Role="MEETINGROOM" EntitySet="MEETINGROOMs" />
+      <End Role="EVENT" EntitySet="EVENTs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EVENT__USERID__060DEAE8" Association="meetingModel.FK__EVENT__USERID__060DEAE8">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="EVENT" EntitySet="EVENTs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="EVENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="TEXT" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="EVENTSTART" Type="DateTime" Precision="3" />
+    <Property Name="EVENTEND" Type="DateTime" Precision="3" />
+    <Property Name="CONFROOMID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="USERID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="STATUS" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="MEETINGROOM" Relationship="meetingModel.FK__EVENT__CONFROOMI__0519C6AF" FromRole="EVENT" ToRole="MEETINGROOM" />
+    <NavigationProperty Name="USER" Relationship="meetingModel.FK__EVENT__USERID__060DEAE8" FromRole="EVENT" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="MEETINGROOM">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="NAME" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="EVENTs" Relationship="meetingModel.FK__EVENT__CONFROOMI__0519C6AF" FromRole="MEETINGROOM" ToRole="EVENT" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="EVENTs" Relationship="meetingModel.FK__EVENT__USERID__060DEAE8" FromRole="USERS" ToRole="EVENT" />
+  </EntityType>
+  <Association Name="FK__EVENT__CONFROOMI__0519C6AF">
+    <End Role="MEETINGROOM" Type="meetingModel.MEETINGROOM" Multiplicity="1" />
+    <End Role="EVENT" Type="meetingModel.EVENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MEETINGROOM">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EVENT">
+        <PropertyRef Name="CONFROOMID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EVENT__USERID__060DEAE8">
+    <End Role="USERS" Type="meetingModel.USER" Multiplicity="1" />
+    <End Role="EVENT" Type="meetingModel.EVENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="EVENT">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
