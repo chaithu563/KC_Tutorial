@@ -9,10 +9,11 @@ namespace WebApiEx.Controllers
 {
     public class ValuesController : ApiController
     {
+        chaitanyaEntities ob = new chaitanyaEntities();
         // GET api/values
         public IEnumerable<Employee> Get()
         {
-            chaitanyaEntities ob = new chaitanyaEntities();
+           
 
 
             return ob.Employees;
@@ -21,10 +22,18 @@ namespace WebApiEx.Controllers
         // GET api/values/5
         public Employee Get(int id)
         {
-            chaitanyaEntities ob = new chaitanyaEntities();
+ 
 
 
             return ob.Employees.Where(x=>x.id==id).Single();
+        }
+
+        public decimal MaxSalary()
+        {
+            var max=ob.Employees.Max(x => x.salary);
+
+
+            return max.Value;
         }
 
         // POST api/values

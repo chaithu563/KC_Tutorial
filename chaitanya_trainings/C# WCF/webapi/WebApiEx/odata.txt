@@ -1,0 +1,1 @@
+http://bitoftech.net/2014/04/16/create-read-only-odata-endpoint-using-asp-net-web-api/

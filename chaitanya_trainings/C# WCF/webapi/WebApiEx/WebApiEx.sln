@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiEx", "WebApiEx\WebApiEx.csproj", "{B621C432-6647-4335-9049-3B25F23ADEBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPISimple", "WebAPISimple\WebAPISimple.csproj", "{CDFD2913-A437-47CE-A220-5A9B06EEAA21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{B621C432-6647-4335-9049-3B25F23ADEBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B621C432-6647-4335-9049-3B25F23ADEBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B621C432-6647-4335-9049-3B25F23ADEBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDFD2913-A437-47CE-A220-5A9B06EEAA21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDFD2913-A437-47CE-A220-5A9B06EEAA21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDFD2913-A437-47CE-A220-5A9B06EEAA21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDFD2913-A437-47CE-A220-5A9B06EEAA21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
